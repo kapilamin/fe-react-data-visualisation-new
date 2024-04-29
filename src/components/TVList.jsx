@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 
 function TVList ({ currentSearchTerm }){
 
-    const [TvShows, setTvShows] = useState([])
+    const [TvShows, setTvShows] = useState("")
     const [isError, setIsError] = useState(false)
 
     useEffect(() => {
-        fetch(`https://api.tvmaze.com/search/shows?q=${currentSearchTerm}`)
+        fetch(`https://api.tvmaze.com/singlesearch/shows?q=${currentSearchTerm}`)
         .then((response)=>{        
-                console.log(response);        
             if(!response.ok){
                 return Promise.reject()
             }
@@ -35,6 +34,7 @@ function TVList ({ currentSearchTerm }){
                     <h2 className="show">{TvShow.show.name}</h2>
                     <h2 className="genres">{TvShow.show.genres}</h2>
                     <h2 className="ratings">{TvShow.show.rating.average}</h2>
+                    {/* <img src={TvShows.show.image.medium}/>  */}
                  </li>
                 )
             })}
