@@ -1,18 +1,19 @@
 import { useState } from "react"
 
-function TVSearch (){
+
+function TVSearch ({setCurrentSearchTerm}){
 
     const [newSearchTerm, setNewSearchTerm] = useState("")
 
     function handleSubmit(event){
         event.preventDefault()
         console.log("submitting", newSearchTerm);
+        setCurrentSearchTerm(newSearchTerm);
+        setNewSearchTerm("")
     }
 
     return(
-        <form className="search-form" onSubmit={(event) => {
-            handleSubmit(event)
-        }}>
+        <form className="search-form" onSubmit={handleSubmit}>
             <label htmlFor="search-input">Search: </label>
             <input 
             type="text" 
@@ -21,7 +22,7 @@ function TVSearch (){
             onChange={(event)=>{
                 setNewSearchTerm(event.target.value)
             }}/>
-            <button>Go!</button>
+            <button type="submit">Go!</button>
         </form>
     )
 }

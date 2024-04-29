@@ -1,30 +1,40 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
-function TVList (props){
-    const { currentSearchTerm } = props;
+function TVList ({ currentSearchTerm }){
 
     const [TvShows, setTvShows] = useState([])
+    const [isError, setIsError] = useState(false)
 
     useEffect(() => {
-        fetch(`https://api.tvmaze.com/search/shows?q=${currentSearchTerm}`).then((response) => {
-            return response.json()
-    }).then((data) => {
-   //    console.log(data)
+        fetch(`https://api.tvmaze.com/search/shows?q=${currentSearchTerm}`)
+        .then((response)=>{        
+                console.log(response);        
+            if(!response.ok){
+                return Promise.reject()
+            }
+                return response.json()
+            })
+            .then((data) => {
             setTvShows(data)
-        })
+            })
+            .catch((err) => {
+                setIsError(true)
+            })
+            
     }, [currentSearchTerm])
 
+    if(isError){
+        return<h2>Error!</h2>
+    }
     return (<> 
     <h2>{`Here are all of our tv shows on ${currentSearchTerm}`} </h2>
         <ul>
             {TvShows.map((TvShow) => {
                 return (
                 <li key={TvShow.id} className="tvshow">
-                    console.log("")
                     <h2>{TvShow.show.name}</h2>
-                    <h2>{TvShow.show.genre}</h2>
-                    <img src={TvShow.show.image.medium}/>
+                    <h2>{TvShow.show.genres}</h2>
+                    {/* <img src={TvShow.show.image.medium}/> */}
                  </li>
                 )
             })}

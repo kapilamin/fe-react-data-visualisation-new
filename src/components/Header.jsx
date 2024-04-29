@@ -1,6 +1,6 @@
 function Header (){
     return(
-    <h1>Telly Addicts</h1>
+    <h1>📺 Telly Addicts 🍿 </h1>
     )
 }
 

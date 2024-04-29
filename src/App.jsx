@@ -14,7 +14,7 @@ function App() {
     <>
       <Header />
       <TVSearch setCurrentSearchTerm={ setCurrentSearchTerm }/>
-      <TVList currentSearchTerm= { currentSearchTerm }/>
+      <TVList currentSearchTerm={ currentSearchTerm }/>
     </>
   )
 }
