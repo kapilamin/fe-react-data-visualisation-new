@@ -32,9 +32,9 @@ function TVList ({ currentSearchTerm }){
             {TvShows.map((TvShow) => {
                 return (
                 <li key={TvShow.id} className="tvshow">
-                    <h2>{TvShow.show.name}</h2>
-                    <h2>{TvShow.show.genres}</h2>
-                    {/* <img src={TvShow.show.image.medium}/> */}
+                    <h2 className="show">{TvShow.show.name}</h2>
+                    <h2 className="genres">{TvShow.show.genres}</h2>
+                    <h2 className="ratings">{TvShow.show.rating.average}</h2>
                  </li>
                 )
             })}
