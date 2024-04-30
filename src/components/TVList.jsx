@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 
-function TVList ({ currentSearchTerm }){
+function TVList ({ currentSearchTerm}){
 
-    const [TvShows, setTvShows] = useState("")
+    const [TvShows, setTvShows] = useState([])
     const [isError, setIsError] = useState(false)
 
     useEffect(() => {
-        fetch(`https://api.tvmaze.com/singlesearch/shows?q=${currentSearchTerm}`)
+        fetch(`https://api.tvmaze.com/search/shows?q=${currentSearchTerm}`)
         .then((response)=>{        
             if(!response.ok){
                 return Promise.reject()
@@ -22,22 +22,32 @@ function TVList ({ currentSearchTerm }){
             
     }, [currentSearchTerm])
 
+
     if(isError){
         return<h2>Error!</h2>
     }
     return (<> 
     <h2>{`Here are all of our tv shows on ${currentSearchTerm}`} </h2>
         <ul>
-            {TvShows.map((TvShow) => {
-                return (
-                <li key={TvShow.id} className="tvshow">
-                    <h2 className="show">{TvShow.show.name}</h2>
-                    <h2 className="genres">{TvShow.show.genres}</h2>
-                    <h2 className="ratings">{TvShow.show.rating.average}</h2>
-                    {/* <img src={TvShows.show.image.medium}/>  */}
-                 </li>
-                )
-            })}
+        {TvShows.map((TvShow) => {
+        const { show } = TvShow;
+        if (!show) return null; 
+        const { name, genres, rating, image } = show;
+        const genreList = genres.join(', ');
+        const showRating = rating?.average ?? 'No rating'; 
+        return (
+            <li key={TvShow.id} className="tvshow">
+                <h2 className="show">{name}</h2>
+                <h2 className="genres">{genreList}</h2>
+                <h2 className="ratings">{showRating}</h2>
+                {image ? (
+                    <img src={image.medium} alt={`Poster for ${name}`} />
+                ) : (
+                    <div>No Image Available</div>
+                )}
+            </li>
+        );
+    })}
         </ul>
     </>)
 
