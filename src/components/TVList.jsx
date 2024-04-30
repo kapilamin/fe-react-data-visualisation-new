@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 
-function TVList ({ currentSearchTerm}){
+function TVList ({ currentSearchTerm, currentRating}){
 
     const [TvShows, setTvShows] = useState([])
     const [isError, setIsError] = useState(false)
+    //const [ratingFilter, setRatingFilter] = useState(null)
 
     useEffect(() => {
         fetch(`https://api.tvmaze.com/search/shows?q=${currentSearchTerm}`)
@@ -20,13 +21,25 @@ function TVList ({ currentSearchTerm}){
                 setIsError(true)
             })
             
-    }, [currentSearchTerm])
+    }, [currentSearchTerm, currentRating])
 
 
     if(isError){
         return<h2>Error!</h2>
     }
     return (<> 
+
+            {/* <div>
+                <h2>{`Here are all of our tv shows on ${currentSearchTerm}`}</h2>
+                <label htmlFor="ratingFilter">Filter by Rating:</label>
+                <input
+                    type="number"
+                    id="ratingFilter"
+                    value={ratingFilter || ""}
+                    onChange={setRatingFilter}
+                />
+            </div> */}
+
     <h2>{`Here are all of our tv shows on ${currentSearchTerm}`} </h2>
         <ul>
         {TvShows.map((TvShow) => {
@@ -35,6 +48,12 @@ function TVList ({ currentSearchTerm}){
         const { name, genres, rating, image } = show;
         const genreList = genres.join(', ');
         const showRating = rating?.average ?? 'No rating'; 
+
+        // if (ratingFilter && parseFloat(showRating) !== ratingFilter) {
+        //     return null;
+        // }
+
+
         return (
             <li key={TvShow.id} className="tvshow">
                 <h2 className="show">{name}</h2>
@@ -46,6 +65,8 @@ function TVList ({ currentSearchTerm}){
                     <div>No Image Available</div>
                 )}
             </li>
+
+            
         );
     })}
         </ul>

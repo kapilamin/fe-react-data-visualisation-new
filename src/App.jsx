@@ -7,14 +7,14 @@ import { useState } from 'react'
 function App() {
 
   const [currentSearchTerm, setCurrentSearchTerm] = useState("")
-
+  const [currentRating, setCurrentRating] = useState(0)
   
 
   return (
     <>
       <Header />
-      <TVSearch setCurrentSearchTerm={ setCurrentSearchTerm }/>
-      <TVList currentSearchTerm={ currentSearchTerm }/>
+      <TVSearch setCurrentSearchTerm={ setCurrentSearchTerm } setCurrentRating={setCurrentRating}/>
+      <TVList currentSearchTerm={ currentSearchTerm } currentRating={currentRating}/>
     </>
   )
 }

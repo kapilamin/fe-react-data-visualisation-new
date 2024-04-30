@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 
-function TVSearch ({setCurrentSearchTerm}){
+function TVSearch ({setCurrentSearchTerm, setCurrentRating}){
 
     const [newSearchTerm, setNewSearchTerm] = useState("")
     const [rating, setRating] = useState(0)
@@ -11,6 +11,7 @@ function TVSearch ({setCurrentSearchTerm}){
         event.preventDefault()
         console.log("submitting", newSearchTerm);
         setCurrentSearchTerm(newSearchTerm);
+        setCurrentRating(rating)
         setNewSearchTerm("")
     }
 
@@ -30,7 +31,7 @@ function TVSearch ({setCurrentSearchTerm}){
                 id="Rating" 
                 name="Rating"
                 value={rating}        
-                onChange={(event) => setRating(event.target.value)}
+                onChange={(event) => {setRating(event.target.value)}}
                 >
                 <option value="0">0</option>    
                 <option value="1">1</option>
