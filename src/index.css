@@ -28,6 +28,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  color: #535bf2;
 }
 
 h1 {
@@ -57,7 +58,9 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    background-color: #b4aaaa;
+    background-image: url("https://cdn.shopify.com/s/files/1/1020/1629/files/8feb2e681973198ce654b78993cf296d_1024x1024.jpg?v=1585768132");
+    background-size: cover, auto
   }
   a:hover {
     color: #747bff;
@@ -77,6 +80,18 @@ button:focus-visible {
 
 .ratings {
   color: #55c946;
+}
+
+.tvshow {
+  color: #df1a55;
+}
+
+.Header {
+  color: #df1a55;
+}
+
+.subHeading {
+  color: #000000;
 }
 
 
